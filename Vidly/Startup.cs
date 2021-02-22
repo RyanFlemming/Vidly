@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Routing;
 
 namespace Vidly
 {
@@ -50,12 +51,19 @@ namespace Vidly
             {
                 // Route config
                 // Specific routes on top, generic routes on bottom
+                /* Convention based routing
+                 Magic strings = bad news. Do not use!
+                See MoviesController.cs for an attribute based approach
+                */
+
+                /*
                 endpoints.MapControllerRoute(
                     name: "MoviesByReleaseDate",
                     "movies/released/{year}/{month}",
                     new { controller = "Movies", action = "ByReleaseDate"},
                     new {year = @"\d{4}", month = @"\d{2}"}
                     );
+                */
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Movies}/{action=Index}/{id?}");

@@ -9,10 +9,17 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
+
         public IActionResult Index()
         {
             var movie = new Movie() { Name = "Shrek!" };
             return View(movie);
+        }
+
+        [Route("Movies/ByReleaseDate/{year}/{month:regex(\\d{{2}}):range(1, 12)}")]
+        public IActionResult ByReleaseDate(int year, int month)
+        {
+            return Content(year + "/" + month);
         }
     }
 }
