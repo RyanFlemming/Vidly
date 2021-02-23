@@ -11,27 +11,34 @@ namespace Vidly.Controllers
     {
         public IActionResult Index()
         {
+            var customers = CreateCustomers();
+            //customers.Clear();
 
-            var customers = new List<Customer>
-            {
-                new Customer {Id= 1, Name = "John Smith"},
-                new Customer {Id = 2, Name = "Mary Williams"}
-            };
             return View(customers);
         }
 
         public IActionResult Details(int id)
         {
-            var customers = new List<Customer>
+            if (ModelState.IsValid)
             {
-                new Customer {Id= 1, Name = "John Smith"},
+                var customers = CreateCustomers();
+                Customer customer = customers.Find(c => c.Id == id);
+                return View(customer); 
+            }
+            else
+            {
+                return View("Error", new ErrorViewModel());
+            }
+        }
+
+        // To be replaced with seed method
+        private static List<Customer> CreateCustomers()
+        {
+            return new List<Customer>
+            {
+                new Customer {Id = 1, Name = "John Smith"},
                 new Customer {Id = 2, Name = "Mary Williams"}
             };
-
-            Customer customer = customers.Find(c => c.Id == id);
-            
-
-            return View(customer);
         }
     }
 }
