@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Vidly.Models;
+using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
@@ -12,12 +13,17 @@ namespace Vidly.Controllers
 
         public IActionResult Index()
         {
-            var movie = new Movie() { Name = "Shrek!" };
-            return View(movie);
+            var movies = new List<Movie>
+            {
+                new Movie {Name = "Shrek"},
+                new Movie {Name = "Wall-e"}
+            };
+            return View(movies);
         }
 
         public IActionResult Details()
         {
+            // Do work
             return View();
         }         
 

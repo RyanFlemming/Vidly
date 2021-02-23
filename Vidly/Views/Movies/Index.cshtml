@@ -1,9 +1,27 @@
-﻿@model Movie
+﻿@model IEnumerable<Vidly.Models.Movie>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@Model.Name</h1>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => movie.Name)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
