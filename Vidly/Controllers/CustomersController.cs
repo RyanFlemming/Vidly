@@ -11,7 +11,13 @@ namespace Vidly.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+
+            var customers = new List<Customer>
+            {
+                new Customer {Id= 1, Name = "John Smith"},
+                new Customer {Id = 2, Name = "Mary Williams"}
+            };
+            return View(customers);
         }
     }
 }
