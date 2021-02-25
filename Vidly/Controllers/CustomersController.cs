@@ -9,6 +9,13 @@ namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
+        // Getting our DbContext object
+        private VidlyContext vidlyContext;
+
+        public CustomersController(VidlyContext vc)
+        {
+            vidlyContext = vc;
+        }
         public IActionResult Index()
         {
             var customers = CreateCustomers();
