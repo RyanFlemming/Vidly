@@ -12,40 +12,33 @@ namespace Vidly.Controllers
         // Getting our DbContext object
         private VidlyContext vidlyContext;
 
+        protected override void Dispose(bool disposing)
+        {
+            vidlyContext.Dispose();
+        }
+
         public CustomersController(VidlyContext vc)
         {
             vidlyContext = vc;
         }
         public IActionResult Index()
         {
-            var customers = CreateCustomers();
-            //customers.Clear();
-
+            var customers = vidlyContext.Customers.ToList();
             return View(customers);
         }
 
         public IActionResult Details(int id)
         {
+            // Refactor later
             if (ModelState.IsValid)
             {
-                var customers = CreateCustomers();
-                Customer customer = customers.Find(c => c.Id == id);
+                var customer = vidlyContext.Customers.SingleOrDefault((c)=>c.Id == id);
                 return View(customer); 
             }
             else
             {
                 return View("Error", new ErrorViewModel());
             }
-        }
-
-        // To be replaced with seed method
-        private static List<Customer> CreateCustomers()
-        {
-            return new List<Customer>
-            {
-                new Customer {Id = 1, Name = "John Smith"},
-                new Customer {Id = 2, Name = "Mary Williams"}
-            };
         }
     }
 }
