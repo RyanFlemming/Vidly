@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Vidly.Models;
 
 namespace Vidly.Controllers
@@ -23,7 +24,7 @@ namespace Vidly.Controllers
         }
         public IActionResult Index()
         {
-            var customers = vidlyContext.Customers.ToList();
+            var customers = vidlyContext.Customers.Include((c)=> c.MembershipType).ToList();
             return View(customers);
         }
 
