@@ -24,7 +24,7 @@ namespace Vidly.Controllers
         }
         public IActionResult Index()
         {
-            var customers = vidlyContext.Customers.Include((c)=> c.MembershipType).ToList();
+            var customers = vidlyContext.Customers.Include((c)=> c.MembershipType.Name).ToList();
             return View(customers);
         }
 
