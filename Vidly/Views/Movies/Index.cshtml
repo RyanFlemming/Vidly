@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Vidly.Models.Movie>
+﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
+@model IEnumerable<Vidly.Models.Movie>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,22 +7,27 @@
 }
 
 
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var movie in Model)
-        {
+@if (!Model.Any())
+{
+    <text>No movies have been added</text>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => movie.Name)
-                </td>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Genre)</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var movie in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => movie.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => movie.Genre)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

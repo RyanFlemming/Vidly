@@ -10,14 +10,21 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
+        // Getting our DbContext object
+        private VidlyContext vidlyContext;
 
+        protected override void Dispose(bool disposing)
+        {
+            vidlyContext.Dispose();
+        }
+
+        public MoviesController(VidlyContext vc)
+        {
+            vidlyContext = vc;
+        }
         public IActionResult Index()
         {
-            var movies = new List<Movie>
-            {
-                new Movie {Name = "Shrek"},
-                new Movie {Name = "Wall-e"}
-            };
+            var movies = vidlyContext.Movies.ToList();
             return View(movies);
         }
 
