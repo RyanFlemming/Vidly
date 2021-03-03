@@ -28,10 +28,17 @@ namespace Vidly.Controllers
             return View(movies);
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
-            // Do work
-            return View();
+            if (ModelState.IsValid)
+            {
+                var movie = vidlyContext.Movies.SingleOrDefault((m) => m.Id == id);
+                return View(movie);
+            }
+            else
+            {
+                return View("Error", new ErrorViewModel());
+            }
         }         
 
         [Route("Movies/ByReleaseDate/{year}/{month:regex(\\d{{2}}):range(1, 12)}")]

@@ -1,5 +1,4 @@
-﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
-@model IEnumerable<Vidly.Models.Movie>
+﻿@model IEnumerable<Vidly.Models.Movie>
 
 @{
     ViewData["Title"] = "Index";
@@ -24,7 +23,7 @@ else
             @foreach (var movie in Model)
             {
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => movie.Name)</td>
+                    <td>@Html.ActionLink(movie.Name, "Details", "Movies", new { id = movie.Id }, null)</td>
                     <td>@Html.DisplayFor(modelItem => movie.Genre)</td>
                 </tr>
             }
