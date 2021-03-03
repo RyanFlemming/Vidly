@@ -8,6 +8,8 @@ namespace Vidly.Models
 {
     public class Customer
     {
+        // to do: add vm's
+        // use data annotations to format dates
         public int Id { get; set; }
         [Required]
         [StringLength(255)]
