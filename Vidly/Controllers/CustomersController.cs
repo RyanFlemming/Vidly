@@ -60,27 +60,20 @@ namespace Vidly.Controllers
         [HttpPost]
         public IActionResult Save(Customer customer)
         {
-            if (ModelState.IsValid)
+            if (customer.Id == 0)
             {
-                if (customer.Id == 0)
-                {
-                    vidlyContext.Add(customer);
-                }
-                else
-                {
-                    var customerInDb = vidlyContext.Customers.Single((c) => c.Id == customer.Id);
-                    customerInDb.Name = customer.Name;
-                    customerInDb.Birthdate = customer.Birthdate;
-                    customerInDb.MembershipTypeId = customer.MembershipTypeId;
-                    customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
-                }
-                vidlyContext.SaveChanges();
-                return RedirectToAction("Index", "Customers"); 
+                vidlyContext.Add(customer);
             }
             else
             {
-                return View("Error");
+                var customerInDb = vidlyContext.Customers.Single((c) => c.Id == customer.Id);
+                customerInDb.Name = customer.Name;
+                customerInDb.Birthdate = customer.Birthdate;
+                customerInDb.MembershipTypeId = customer.MembershipTypeId;
+                customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
             }
+            vidlyContext.SaveChanges();
+            return RedirectToAction("Index", "Customers");
         }
 
         public IActionResult Edit(int id)
@@ -91,12 +84,12 @@ namespace Vidly.Controllers
                 return NotFound();
             }
             IEnumerable<SelectListItem> selMembershipTypes = from m in vidlyContext.MembershipTypes
-                select new SelectListItem
-                {
-                    Text = m.Name,
-                    Value = m.Id.ToString(),
-                    Selected = m.Id == id
-                };
+                                                             select new SelectListItem
+                                                             {
+                                                                 Text = m.Name,
+                                                                 Value = m.Id.ToString(),
+                                                                 Selected = m.Id == id
+                                                             };
 
 
             var viewModel = new CustomerFormViewModel()
