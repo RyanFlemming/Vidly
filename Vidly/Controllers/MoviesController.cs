@@ -26,7 +26,7 @@ namespace Vidly.Controllers
         }
         public IActionResult Index()
         {
-            var movies = vidlyContext.Movies.ToList();
+            var movies = vidlyContext.Movies.Include((m)=>m.Genre).ToList();
             return View(movies);
         }
 
@@ -34,7 +34,7 @@ namespace Vidly.Controllers
         {
             if (ModelState.IsValid)
             {
-                var movie = vidlyContext.Movies.SingleOrDefault((m) => m.Id == id);
+                var movie = vidlyContext.Movies.Include((m)=>m.Genre).SingleOrDefault((m) => m.Id == id);
                 return View(movie);
             }
             else
